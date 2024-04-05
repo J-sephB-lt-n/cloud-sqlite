@@ -1,8 +1,9 @@
 # this config must go to /etc/litestream.yml
 dbs:
-  - path: /cloud_sqlite/mydb1.db
+  - path: /var/lib/mydb1.db
     replicas:
       - url: gcs://sqlite-db-litestream-backups/mydb1.db
-  - path: /cloud_sqlite/mydb2.db
+  
+  - path: /var/lib/mydb2.db
     replicas:
       - url: gcs://sqlite-db-litestream-backups/mydb2.db
