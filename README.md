@@ -1,5 +1,37 @@
 # serverless-SQLite-db-on-google-cloud
 
+Create an E2-Micro with read/write access to Cloud Storage
+
+Run the following on the VM:
+
+```bash
+sudo apt update 
+sudo apt --fix-broken install
+sudo apt install sqlite3 
+
+# litestream setup #
+wget https://github.com/benbjohnson/litestream/releases/download/v0.3.13/litestream-v0.3.13-linux-amd64.deb
+sudo dpkg -i litestream-v0.3.13-linux-amd64.deb
+sudo vim /etc/litestream.yml # paste in the litestream config here (https://github.com/J-sephB-lt-n/cloud-sqlite/blob/main/litestream.yml)
+sudo systemctl enable litestream
+sudo systemctl start litestream
+
+# create SQL databases #
+sqlite3 mydb1.db <<EOF
+CREATE TABLE users (user_id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT);
+INSERT INTO users (first_name, last_name) VALUES ('oscar', 'peterson');
+INSERT INTO users (first_name, last_name) VALUES ('bill', 'evans');
+EOF
+
+sqlite3 mydb2.db <<EOF
+CREATE TABLE sales (transaction_id INTEGER PRIMARY KEY, product_id INTEGER, quantity INTEGER);
+INSERT INTO sales (product_id, quantity) VALUES (69, 1);
+INSERT INTO sales (product_id, quantity) VALUES (4, 20);
+EOF
+```
+
+# Old Stuff
+
 The database works as follows:
 
 * The SQLite database file is stored on Google Cloud Storage
