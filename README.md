@@ -6,6 +6,8 @@ With a SQLite database, [litestream](https://github.com/benbjohnson/litestream) 
 
 However, I'm not sure if the max_vms=1 on Cloud Run can be 100% be relied upon, and if Cloud Run happens to start 2 VMs, then the integrity of the data will be stuffed up.
 
+Another problem is that SQLite is not designed to be hosted on a server and accessed by many users over a network, so this will also be a bit of a hack.
+
 Here is some code illustrating how [litestream](https://github.com/benbjohnson/litestream) works (using a Compute Engine VM):
 
 Create an E2-Micro with read/write access to Cloud Storage
